@@ -1,13 +1,14 @@
 import React, { useReducer } from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
+import youtube from '../utils/youtube';
 import SearchContext from './searchContext';
 import searchReducer from './searchReducer';
 import {
   SET_SEARCHTEXT,
   CLEAR_SEARCHTEXT,
   GET_VIDEOS,
-  CLEAR_VIDEOS
+  CLEAR_VIDEOS,
+  SET_SELECTED_VIDEO
 } from '../types';
 
 
@@ -15,6 +16,7 @@ const SearchState = ({ children }) => {
   const intialState = {
     searchText: '',
     videos: [],
+    selectedVideo: null,
     loading: false
   };
 
@@ -22,21 +24,42 @@ const SearchState = ({ children }) => {
 
   // Set searchText
   const setSearchText = (text) => {
-    dispatch({ action: SET_SEARCHTEXT, payload: text });
+    dispatch({ type: SET_SEARCHTEXT, payload: text });
   };
 
   // Clear searchText
   const clearSearchText = () => {
-    dispatch({ action: CLEAR_SEARCHTEXT });
+    dispatch({ type: CLEAR_SEARCHTEXT });
   };
+
   // Get Videos
-  const getVideos = (text) => {
-    dispatch({ action: GET_VIDEOS });
+  const getVideos = async (text) => {
+    const KEY = 'AIzaSyAG9aiEHnVLeRq6NeC1VYGs4iu_Z6fZ8Pw';
+    const res = await youtube.get('/search', {
+      params: {
+        q: text,
+        part: 'snippet',
+        maxResults: 5,
+        type: 'video',
+        key: KEY
+      }
+    });
+
+    const videos = res.data.items;
+
+    dispatch({ type: GET_VIDEOS, payload: videos });
   };
+
+  // Set selectedVideo
+  const setSelectedVideo = (video) => {
+    dispatch({ type: SET_SELECTED_VIDEO, payload: video });
+  };
+  // Get one Video
+  const getVideo = () => null;
 
   // Clear Videos
   const clearVideos = () => {
-    dispatch({ action: CLEAR_VIDEOS });
+    dispatch({ type: CLEAR_VIDEOS });
   };
 
   return (
@@ -44,10 +67,13 @@ const SearchState = ({ children }) => {
       value={{
         searchText: state.searchText,
         videos: state.videos,
+        selectedVideo: state.selectedVideo,
         setSearchText,
         clearSearchText,
         getVideos,
-        clearVideos
+        clearVideos,
+        setSelectedVideo,
+        getVideo
       }}
     >
       {children}
