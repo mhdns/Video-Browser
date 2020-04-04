@@ -54,8 +54,6 @@ const SearchState = ({ children }) => {
   const setSelectedVideo = (video) => {
     dispatch({ type: SET_SELECTED_VIDEO, payload: video });
   };
-  // Get one Video
-  const getVideo = () => state.selectedVideo;
 
   // Clear Videos
   const clearVideos = () => {
@@ -72,8 +70,7 @@ const SearchState = ({ children }) => {
         clearSearchText,
         getVideos,
         clearVideos,
-        setSelectedVideo,
-        getVideo
+        setSelectedVideo
       }}
     >
       {children}

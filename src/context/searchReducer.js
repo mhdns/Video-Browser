@@ -21,7 +21,8 @@ export default (state, action) => {
     case GET_VIDEOS:
       return {
         ...state,
-        videos: action.payload
+        videos: action.payload,
+        selectedVideo: action.payload[0]
       };
     case SET_SEARCHTEXT:
       return {
