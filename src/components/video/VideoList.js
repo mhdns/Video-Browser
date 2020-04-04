@@ -9,7 +9,7 @@ const VideoList = () => {
     if (vids.length) {
       return vids.map((vid) => <VideoItem video={vid} key={vid.id.videoId} />);
     }
-    return 'No Videos to display';
+    return <div />;
   };
 
   return (

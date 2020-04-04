@@ -11,7 +11,7 @@ const VideoItem = ({ video }) => {
   };
   return (
     <div tabIndex={0} role="button" className="video-item item" onClick={onClick} onKeyDown={onClick}>
-      <img className="ui image" src={video.snippet.thumbnails.medium.url} alt="" />
+      <img className="ui image" src={video.snippet.thumbnails.medium.url} alt={video.snippet.title} />
       <div className="content">
         <div className="header">
           {video.snippet.title}

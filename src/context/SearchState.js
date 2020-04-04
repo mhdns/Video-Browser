@@ -55,7 +55,7 @@ const SearchState = ({ children }) => {
     dispatch({ type: SET_SELECTED_VIDEO, payload: video });
   };
   // Get one Video
-  const getVideo = () => null;
+  const getVideo = () => state.selectedVideo;
 
   // Clear Videos
   const clearVideos = () => {
