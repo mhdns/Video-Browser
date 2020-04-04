@@ -4,7 +4,6 @@ import SearchContext from '../../context/searchContext';
 const VideoDetail = () => {
   const searchContext = useContext(SearchContext);
   const { selectedVideo } = searchContext;
-
   const renderDetails = () => {
     if (selectedVideo) {
       return (
