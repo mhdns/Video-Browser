@@ -3,16 +3,21 @@ import SearchContext from '../../context/searchContext';
 
 const SearchBar = () => {
   const searchContext = useContext(SearchContext);
-  const { searchText } = searchContext;
+  const {
+    setSearchText, searchText, getVideos, clearSearchText, clearVideos
+  } = searchContext;
   const [text, setText] = useState('');
 
   const onChange = (event) => { setText(event.target.value); };
 
   const onSubmit = (event) => {
-    if (text !== '') {
-      event.preventDefault();
-      console.log(text);
+    event.preventDefault();
+    if (searchText !== '') {
+      clearSearchText();
+      clearVideos();
     }
+    setSearchText(text);
+    getVideos(text);
   };
   return (
     <div className="search-bar ui segment">
